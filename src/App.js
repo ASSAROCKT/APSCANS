@@ -22,7 +22,7 @@ function Header({ goToHome }) {
           {/* Social Icons */}
           <div className="flex space-x-4">
             {/* Discord */}
-            <a href="https://discord.gg/x22HkcVKHT" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition duration-300 ease-in-out">
+            <a href="https://discord.com/invite/x22HkcVKHT" target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition duration-300 ease-in-out">
               <i className="fab fa-discord text-2xl"></i>
             </a>
             {/* Ko-fi */}
@@ -179,9 +179,10 @@ function App() {
 // HomePage Component
 function HomePage({ allMangaData, goToSeries }) {
   return (
-    <div className="container mx-auto p-4 min-h-[calc(100vh-64px)]">
-      <h1 className="text-4xl font-bold text-indigo-400 mb-8 text-center">All Series</h1>
-      <div className="flex flex-col space-y-8">
+    // Removed 'container mx-auto p-4' from here
+    <div className="min-h-[calc(100vh-64px)]">
+      <h1 className="text-4xl font-bold text-indigo-400 mb-8 text-center pt-8">All Series</h1> {/* Added pt-8 for top padding */}
+      <div className="flex flex-col space-y-8 px-4"> {/* Added px-4 for horizontal padding */}
         {allMangaData.map((manga, index) => (
           <div
             key={index}
@@ -225,9 +226,10 @@ function SeriesPage({ mangaData, goToReader, goToHome }) {
   const firstChapterKey = Object.keys(mangaData.chapters).sort((a, b) => parseFloat(a) - parseFloat(b))[0];
 
   return (
-    <div className="container mx-auto p-4">
+    // Removed 'container mx-auto p-4' from here
+    <div className="min-h-[calc(100vh-64px)]"> {/* Adjusted min-height for header */}
       {/* Manga Details Section */}
-      <div className="bg-gray-900 rounded-lg shadow-xl p-6 md:p-8 flex flex-col md:flex-row items-start max-w-5xl mx-auto mb-8 border border-gray-700">
+      <div className="bg-gray-900 rounded-lg shadow-xl p-6 md:p-8 flex flex-col md:flex-row items-start max-w-5xl mx-auto mb-8 border border-gray-700 mt-4 px-4"> {/* Added mt-4 for top margin, px-4 for horizontal padding */}
         <img
           src={mangaData.cover}
           alt={`${mangaData.title} Cover`}
@@ -255,7 +257,7 @@ function SeriesPage({ mangaData, goToReader, goToHome }) {
       </div>
 
       {/* Chapters Section */}
-      <div className="bg-gray-900 rounded-lg shadow-xl p-6 max-w-5xl mx-auto border border-gray-700">
+      <div className="bg-gray-900 rounded-lg shadow-xl p-6 max-w-5xl mx-auto border border-gray-700 px-4"> {/* Added px-4 for horizontal padding */}
         <div className="flex justify-between items-center mb-6">
           <button
             onClick={goToHome}
@@ -384,8 +386,9 @@ function ReaderPage({ mangaData, selectedChapterKey, goToSeries, goToReader }) {
 
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex flex-col md:flex-row justify-between items-center mb-6">
+    // Removed 'container mx-auto p-4' from here
+    <div className="min-h-[calc(100vh-64px)]"> {/* Adjusted min-height for header */}
+      <div className="flex flex-col md:flex-row justify-between items-center mb-6 px-4 pt-4"> {/* Added px-4 and pt-4 */}
         <button
           onClick={goToSeries}
           className="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded-full shadow-md transition duration-300 ease-in-out mb-4 md:mb-0"
@@ -417,14 +420,16 @@ function ReaderPage({ mangaData, selectedChapterKey, goToSeries, goToReader }) {
         </div>
       </div>
 
-      <div className="flex flex-col items-center bg-gray-900 rounded-lg shadow-lg p-4 border border-gray-700">
+      {/* Changed w-full to max-w-full for images to allow original size on large screens */}
+      <div className="flex flex-col items-center">
         {imageUrls.length > 0 ? (
           imageUrls.map((imageUrl, index) => (
             <img
               key={index}
               src={imageUrl}
               alt={`Page ${index + 1}`}
-              className="w-full h-auto max-w-full rounded-md mb-2 object-contain"
+              // Changed w-full to max-w-full
+              className="max-w-full h-auto object-contain"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = `https://placehold.co/600x800/555555/FFFFFF?text=Image+Load+Error`;
@@ -436,7 +441,7 @@ function ReaderPage({ mangaData, selectedChapterKey, goToSeries, goToReader }) {
         )}
       </div>
 
-      <div className="flex justify-center space-x-4 mt-6">
+      <div className="flex justify-center space-x-4 mt-6 pb-4"> {/* Added pb-4 for bottom padding */}
         <button
           onClick={goToPreviousChapter}
           disabled={currentChapterIndex === 0}
@@ -461,3 +466,4 @@ function ReaderPage({ mangaData, selectedChapterKey, goToSeries, goToReader }) {
 }
 
 export default App;
+// Ensure FontAwesome icons are loaded in your index.html or via a CDN
